@@ -73,7 +73,7 @@ app.post('/madlib',function(req,res){
     return res.render('madlib_template',req.body)
 })
 
-app.get('/number/:digit',function(req,res){
+app.get('/numbers/:digit',function(req,res){
     console.log(req.params.digit)
     digit = req.params.digit
     if (!isPositiveInteger(digit)){
@@ -102,6 +102,9 @@ function isPositiveInteger(str) {
   
     return false;
   }
+  app.get('*', function(req, res) {
+    return res.render('invalid_template')
+  })
 // -------------- listener -------------- //
 // // The listener is what keeps node 'alive.' 
 
