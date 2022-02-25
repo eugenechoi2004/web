@@ -1,4 +1,6 @@
 const express = require('express');
+var assert = require('assert');
+const { nextTick } = require('process');
 var app = express.Router();
 
 
@@ -88,8 +90,31 @@ function isPositiveInteger(str) {
     return false;
   }
 
+var validLatLong = function (req,res){
+    /*
+    checks
+    there are values existing
+    no missing key
+    need to make sure there is forecast available
+    is number
+    is in the US and can be requested by the api
+    it is not more than four decimcal places accurate
 
-app.get('*', function(req, res) {
+    */
+    
+}
+
+app.use("/getweather", function(req, res) {
+    assert.equal(req.query.lat!=undefined,True)
+    assert.equal(req.query.long!=undefined,True)
+    assert.equal(req.query.lat!=undefined,True)
+    assert.equal(req.query.lat!=undefined,True)
+    console.log(req.query.lat!=undefined,True)
+    console.log(req.query)
+    next()
+})
+
+app.get('/getweather', function(req, res) {
     return res.render('invalid_template')
 })
 
