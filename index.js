@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const home = require('./routes/home.js')
-const weather = require('./routes/weather.js')
+const weather = require('./routes/weather2.js')
 app.use(home);
 app.use(weather)
 

@@ -17,7 +17,7 @@ function isValidFloat(str) {
 }
 
 function call(lat,long){
-    
+  
   assert.equal(isValidFloat(lat),true)
   assert.equal(isValidFloat(long),true)
   var url = "https://api.weather.gov/points/"+lat+","+long

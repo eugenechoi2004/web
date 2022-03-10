@@ -8,13 +8,14 @@
     </nav>
 </head>
 <body>
-    <form action="weather" method="GET">
+    <form action="getweather" method="GET">
         <label for="lat">Lattitude</label><br>
         <input type="text" id="lat" name="lat" value="72.55"><br>
         <label for="long">Longitude</label><br>
         <input type="text" id="long" name="long" value="56.99"><br>
         <button type="submit" value="Submit">Submit</button>
     </form>
+    {{message}}
 </body>
 </html>
 
