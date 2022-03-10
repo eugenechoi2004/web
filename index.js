@@ -16,7 +16,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const home = require('./routes/home.js')
+const weather = require('./routes/weather.js')
 app.use(home);
+app.use(weather)
+
+app.get('*', function(req, res) {
+    return res.render('invalid_template')
+})
 
 
 // -------------- listener -------------- //
