@@ -7,6 +7,8 @@ var express = require('express')
 var app = express();
 
 var hbs = require('hbs')
+hbs.registerPartials(__dirname + '/views/partials', function (err) {});
+
 app.set('view engine','hbs')
 
 app.use(

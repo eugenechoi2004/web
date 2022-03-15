@@ -24,6 +24,7 @@ function valid(req,res,next) {
         console.log(long)
         assert.equal(isValidFloat(lat),true)
         assert.equal(isValidFloat(long),true)
+        res.locals.url = "https://api.weather.gov/points/"+lat+","+long
     }
     catch{
         return res.render('weather_template',{message:"Try Again!"})
@@ -32,7 +33,18 @@ function valid(req,res,next) {
 }
  
 function stepTwo(req,res,next) {
-    console.log('B');
+  
+    https.get(res.locals.url,options, function(response) {
+      var rawData = '';
+      response.on('data', function(chunk) {
+        rawData += chunk;
+      });
+      response.on('end', function() {
+        var obj = JSON.parse(rawData);
+        url = obj.properties.forecast
+        getForecast(url)
+      });
+ })
     next()
 }
  
