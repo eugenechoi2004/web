@@ -17,7 +17,6 @@ function isValidFloat(str) {
 }
 
 function valid(req,res,next) {
-    
     try{
         var lat = req.query.lat
         var long = req.query.long
@@ -40,10 +39,5 @@ function stepTwo(req,res,next) {
 app.get('/getweather', [valid,stepTwo],function(req,res){
     return res.render('weather_template')
 })
-
-
-
-
-
 
 module.exports = app
