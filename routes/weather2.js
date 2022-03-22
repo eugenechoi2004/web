@@ -42,7 +42,7 @@ function stepTwo(req,res,next) {
       response.on('end', function() {
         var obj = JSON.parse(rawData);
         url = obj.properties.forecast
-        getForecast(url)
+        
       });
  })
     next()
