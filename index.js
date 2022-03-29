@@ -1,32 +1,64 @@
 #!/usr/bin/nodejs
 
-// -------------- load packages -------------- //
-// INITIALIZATION STUFF
-
+// initialize express and app class object
 var express = require('express')
 var app = express();
 
+// initialize handlebars templating engine
 var hbs = require('hbs')
-hbs.registerPartials(__dirname + '/views/partials', function (err) {});
+app.set('view engine', 'hbs')
 
-app.set('view engine','hbs')
+var express = require('express');
+var app = express();
+var mysql = require('mysql');
 
-app.use(
-    express.static('static_files')
-)
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+var hbs = require('hbs')
 
-const home = require('./routes/home.js')
-const weather = require('./routes/weather2.js')
-const cereal = require('./routes/cereal.js')
-app.use(home)
-app.use(weather)
-app.use(cereal)
 
-app.get('*', function(req, res) {
-    return res.render('invalid_template')
+app.set('view engine', 'hbs');
+
+
+
+// -------------- mysql initialization -------------- //
+// USE PARAMETERS FROM DIRECTOR DOCS!!!
+var sql_params = {
+  connectionLimit : 10,
+  user            : process.env.DIRECTOR_DATABASE_USERNAME,
+  password        : process.env.DIRECTOR_DATABASE_PASSWORD,
+  host            : process.env.DIRECTOR_DATABASE_HOST,
+  port            : process.env.DIRECTOR_DATABASE_PORT,
+  database        : process.env.DIRECTOR_DATABASE_NAME
+}
+
+var pool  = mysql.createPool(sql_params);
+
+// -------------- express 'get' handlers -------------- //
+
+
+app.get('/',
+function(req,res){
+
+    var sql = 'UPDATE pagevisits SET count=count+1;'
+    
+    pool.query(sql, function(error, results, fields){
+        if (error) throw error;
+        next()
+    }) 
+  
+},
+function(req,res){
+    var sql = 'SELECT count  FROM pagevisits;'
+    
+    pool.query(sql, function(error, results, fields){
+        if (error) throw error;
+
+        var params = {
+        	'data' : results[0].count
+        }
+        res.render('page',params)
+    }) 
 })
+
 
 
 // -------------- listener -------------- //
