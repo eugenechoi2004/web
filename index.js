@@ -31,30 +31,10 @@ var pool  = mysql.createPool(sql_params);
 
 const home = require('./routes/home.js')
 const weather = require('./routes/weather2.js')
-const cereal = require('./routes/cereal.js')
+const cereal = require('./routes/puppy.js')
 app.use(home)
 app.use(weather)
 app.use(cereal)
-
-app.get('/page',
-function(req,res){
-
-    var sql = 'UPDATE pagevisits SET count=count+1;'
-    
-    pool.query(sql, function(error, results, fields){
-        if (error) throw error;
-    }) 
-
-    var sql = 'SELECT count  FROM pagevisits;'
-    pool.query(sql, function(error, results, fields){
-        if (error) throw error;
-        var params = {
-        	'data' : results[0].count
-        }
-        res.render('page',params)
-    }) 
- })
-
 
 
 
