@@ -42,22 +42,18 @@ function(req,res){
     
     pool.query(sql, function(error, results, fields){
         if (error) throw error;
-        next()
     }) 
-  
-},
-function(req,res){
+
     var sql = 'SELECT count  FROM pagevisits;'
-    
     pool.query(sql, function(error, results, fields){
         if (error) throw error;
 
         var params = {
         	'data' : results[0].count
         }
-        res.render('page',params)
+        res.render('page_counter',params)
     }) 
-})
+  })
 
 
 
