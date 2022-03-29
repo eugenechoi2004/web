@@ -31,7 +31,7 @@ function(req,res){
         var params = {
         	'data' : results[0].count
         }
-        res.render('page',params)
+        res.render('puppy_template',params)
     }) 
  })
 
