@@ -25,7 +25,7 @@ function(req,res){
     pool.query(sql, function(error, results, fields){
         if (error) throw error;
     }) 
-    var sql = 'SELECT count  FROM pagevisits;'
+    var sql = 'SELECT count FROM puppies;'
     pool.query(sql, function(error, results, fields){
         if (error) throw error;
         var params = {

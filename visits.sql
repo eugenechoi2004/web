@@ -1,5 +1,7 @@
+DROP TABLE IF EXISTS puppies;
 
-DROP TABLE IF EXISTS pagevisits;
-
-CREATE TABLE pagevisits (count INT);
-INSERT INTO pagevisits (count) VALUES (0);
+CREATE TABLE puppies (p_id INT, p_name VARCHAR(256), PRIMARY KEY(p_id));
+INSERT INTO puppies (p_id, p_name)
+    VALUES
+    (0, 'Odin'),
+    (1, 'Ryan');
