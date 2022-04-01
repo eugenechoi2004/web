@@ -31,11 +31,10 @@ var pool  = mysql.createPool(sql_params);
 
 const home = require('./routes/home.js')
 const weather = require('./routes/weather2.js')
-const cereal = require('./routes/puppy.js')
+const puppy = require('./routes/puppy.js')
 app.use(home)
 app.use(weather)
-app.use(cereal)
-
+app.use(puppy)
 
 
 app.get('*', function(req, res) {

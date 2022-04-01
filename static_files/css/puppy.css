@@ -11,10 +11,12 @@ body{
     font-family: Courier;
     
 }
+
 img{
     margin: 25px;
     border-radius: 25px;
 }
+
 .Odin{
     display: flex;
     flex-direction: column;
