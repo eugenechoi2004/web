@@ -7,6 +7,9 @@ body{
     display: flex;
     flex-direction: row;
     justify-content:center;
+    color: white;
+    font-family: Courier;
+    
 }
 img{
     margin: 25px;
@@ -51,3 +54,5 @@ button:hover {
     align-self: center;
     font-family: Courier;
 }
+
+

@@ -19,20 +19,50 @@ var sql_params = {
 var pool  = mysql.createPool(sql_params);
 
 
+
 app.get('/puppy',
 function(req,res){
-    var sql = 'UPDATE pagevisits SET count=count+1;'
+    var sql = 'SELECT * FROM puppies;'
     pool.query(sql, function(error, results, fields){
         if (error) throw error;
-    }) 
-    var sql = 'SELECT count FROM puppies;'
-    pool.query(sql, function(error, results, fields){
-        if (error) throw error;
+        var odin = results[0].upvotes-results[0].downvotes
+        var thor = results[1].upvotes-results[1].downvotes
         var params = {
-        	'data' : results[0].count
+        	'odin' : odin,
+        	'thor': thor
         }
         res.render('puppy_template',params)
     }) 
  })
+ 
+ 
+app.post('/puppy',
+function(req,res){
+    var votes = 'upvotes=upvotes+1'
+    var name = '"Odin"'
+    var params = req.body
+    if ('vote-odin' in params){
+        name = '"Odin"'
+        if(params['vote-odin']=='up'){
+            votes = 'upvotes=upvotes+1'
+        }
+        else{
+            votes = 'downvotes=downvotes+1'
+        }
+    }
+    else{
+        name = '"Ryan"'
+        if(params['vote-thor']=='up'){
+            votes = 'upvotes=upvotes+1'
+        }
+        else{
+            votes = 'downvotes=downvotes+1'
+        }
+    }
+    var sql = 'UPDATE puppies SET ' +votes+' WHERE p_name='+name+';'
+    pool.query(sql, function(error, results, fields){
+        res.redirect("https://user.tjhsst.edu/2022echoi/puppy")
+    }) 
+})
 
 
