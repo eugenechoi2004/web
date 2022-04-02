@@ -37,6 +37,7 @@ app.use(weather)
 app.use(puppy)
 
 
+
 app.get('*', function(req, res) {
     return res.render('invalid_template')
 })

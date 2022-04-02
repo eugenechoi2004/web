@@ -4,6 +4,12 @@ const https = require('https');
 const { nextTick } = require('process');
 var app = express.Router();
 
+let options = { 
+	headers : {
+		'User-Agent': 'request'
+	}
+}
+
 function isValidFloat(str) {
     try {
       const num = Number(str);
@@ -42,13 +48,33 @@ function stepTwo(req,res,next) {
       response.on('end', function() {
         var obj = JSON.parse(rawData);
         url = obj.properties.forecast
-        
+        res.locals.url = url
+        next()
+      });
+ })
+    
+}
+
+function stepThree(req,res,next) {
+    console.log('Start of Step Three')
+    console.log(res.locals.url)
+    https.get(res.locals.url,options, function(response) {
+      var rawData = '';
+      response.on('data', function(chunk) {
+        rawData += chunk;
+      });
+      response.on('end', function() {
+        var obj = JSON.parse(rawData);
+        var periods = obj.properties.periods
+        for (i=0; i < periods.length; i++) {
+            console.log(periods[i])
+        }
       });
  })
     next()
 }
  
-app.get('/getweather', [valid,stepTwo],function(req,res){
+app.get('/getweather', [valid, stepTwo, stepThree],function(req,res){
     return res.render('weather_template')
 })
 
