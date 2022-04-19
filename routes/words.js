@@ -12,19 +12,17 @@ var all_words = fs.readFileSync(path.join('/site','public','data','enable.txt'))
 
 
 router.get('/enable',function(req,res){
-    
+    console.log(all_words)
     var indx;
     if ('word' in req.query) {
         indx = req.query.word;
     } else {
         indx = 0;
     }
-    
     var params = {
         'word' : all_words[indx],
         'indx' : indx
     }
-
     res.json(params)
 })
 
