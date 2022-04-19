@@ -2,18 +2,27 @@
 <html>
 <head>
 	<title>The Weather Page</title>
-	
+	<link rel="stylesheet" href="css/weather.css">
 </head>
 <body>
     {{> navbar}}
+    <center>
     <form action="getweather" method="GET">
         <label for="lat">Lattitude</label><br>
-        <input type="text" id="lat" name="lat" value="42.88"><br>
+        <input type="text" id="lat" name="lat" value="0"><br>
         <label for="long">Longitude</label><br>
-        <input type="text" id="long" name="long" value="-78.88"><br>
+        <input type="text" id="long" name="long" value="0"><br>
         <button type="submit" value="Submit">Submit</button>
     </form>
+    <div class='forecast'>
     {{message}}
+    {{#if icon}}
+        <img src={{icon}}></img>
+        <span class='temp'>Temperature: {{temp}}</span>
+         <span class='forecast'>Forecast: {{forecast}}</span>
+    {{/if}}
+    </div>
+    </center>
 </body>
 </html>
 
